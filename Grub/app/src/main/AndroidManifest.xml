@@ -1,0 +1,54 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.user.grub">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <activity
+            android:name=".Grub"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:parentActivityName=".Grub"
+            android:name=".DiarySelectActivity"
+            android:label="Select date">
+        </activity>
+
+        <activity
+            android:parentActivityName=".DiarySelectActivity"
+            android:name=".DiaryActivity"
+            android:label="Your grub diary">
+        </activity>
+
+        <activity
+            android:parentActivityName=".Grub"
+            android:name=".AddEntryActivity"
+            android:label="Add an entry">
+        </activity>
+
+        <activity
+            android:parentActivityName=".Grub"
+            android:name=".AddTargetActivity"
+            android:label="Add your target">
+        </activity>
+
+        <activity
+            android:parentActivityName=".Grub"
+            android:name=".AskActivity"
+            android:label="Ask about your grub">
+        </activity>
+
+    </application>
+
+</manifest>

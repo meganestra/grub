@@ -2,6 +2,8 @@ package com.example.user.grub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -29,6 +31,8 @@ public class Grub extends AppCompatActivity {
     Button mAskButton;
     Diary mGrubDiary;
     Goal mGoal;
+    SQLiteDatabase db;
+    Cursor cursorRemaining;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +50,13 @@ public class Grub extends AppCompatActivity {
 
         String goalString = SavedTextPreferences.getStoredText(this);
         mGoalValue.setText(goalString);
-//        int goalInt = Integer.parseInt(goalString);
-//        mGoal = new Goal(goalInt);
-//        mGrubDiary = new Diary(mGoal);
-//
-//        mRemainingValue.setText(mGoal.calculateRemainingCalories(mGrubDiary, "22.08.2016"));
+
+        openDatabase();
+
+        int totalCalories = calculateTotalCalories();
+        int goal = Integer.parseInt(goalString);
+        int remainingCalories = goal - totalCalories;
+        mRemainingValue.setText(remainingCalories + "");
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +100,25 @@ public class Grub extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+
+    }
+
+    protected void openDatabase() {
+        db = openOrCreateDatabase("FoodDB", Context.MODE_PRIVATE, null);
+    }
+
+    protected int calculateTotalCalories() {
+
+        int total = 0;
+
+        String REMAINING_SQL_QUERY = "SELECT sum(calories) FROM food WHERE dateConsumed = '23.08.2016'";
+        cursorRemaining = db.rawQuery(REMAINING_SQL_QUERY, null);
+        cursorRemaining.moveToFirst();
+        total = cursorRemaining.getInt(0);
+        cursorRemaining.close();
+        db.close();
+
+        return total;
 
     }
 

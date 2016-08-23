@@ -1,10 +1,17 @@
 package com.example.user.grub;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -13,6 +20,9 @@ import java.util.ArrayList;
 public class NutritionSearch {
 
     private int mCalories;
+    TextView mAnswer;
+    View view;
+    Activity mCaller;
 
     public NutritionSearch(){
         mCalories = 0;
@@ -23,6 +33,8 @@ public class NutritionSearch {
     }
 
     public void getFoodData(String quantity, String measure, String description) {
+
+        this.view = view;
 
         System.out.println("Im inside this");
 
@@ -37,15 +49,12 @@ public class NutritionSearch {
             @Override
             public void onSuccess(JSONObject jsonObject) {
 
-                Log.d("json object", jsonObject.toString());
-
                 if (jsonObject != null && jsonObject.has("calories")) {
-
-                    Log.d("json object", jsonObject.toString());
-
                     mCalories = jsonObject.optInt("calories");
-
                 }
+
+                AskActivity callingActivity = (AskActivity) mCaller;
+                callingActivity.showCals();
             }
 
             @Override
@@ -54,5 +63,9 @@ public class NutritionSearch {
             }
 
         });
+    }
+
+    public void setCallingActivity(Activity callingActivity) {
+        mCaller = callingActivity;
     }
 }

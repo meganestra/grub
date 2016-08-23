@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by user on 19/08/2016.
@@ -41,6 +42,8 @@ public class AddTargetActivity extends AppCompatActivity {
 
                 Context context = view.getContext();
                 SavedTextPreferences.setStoredText(context, inputToSave);
+                Toast.makeText(getApplicationContext(), "Saved successfully", Toast.LENGTH_LONG).show();
+
 
             }
         });

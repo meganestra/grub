@@ -54,5 +54,4 @@ public class Diary {
         }
         return total;
     }
-
 }

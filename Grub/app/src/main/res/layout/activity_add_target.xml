@@ -3,4 +3,32 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/headerGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_goal"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="75sp"
+        android:layout_gravity="center"
+        android:includeFontPadding="true"/>
+
+    <EditText
+        android:id="@+id/editGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="38sp"
+        android:layout_marginTop="50dp"
+        android:hint="@string/add_goal"/>
+
+    <Button
+        android:id="@+id/goalButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="75sp"
+        android:layout_gravity="center"
+        android:includeFontPadding="true"/>
+
 </LinearLayout>

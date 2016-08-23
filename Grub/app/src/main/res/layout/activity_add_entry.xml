@@ -3,4 +3,68 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/add_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_header"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="55sp"
+        android:layout_gravity="center"
+        android:includeFontPadding="true"/>
+
+    <EditText
+        android:id="@+id/description_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/description"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/date_consumed_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/date_consumed"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/quantity_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/quantity"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/measure_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/measure"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/calories_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:hint="@string/calories"
+        android:textSize="25sp"/>
+
+    <EditText
+        android:id="@+id/meal_type_input"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:hint="@string/meal_type"
+        android:textSize="25sp"/>
+
+    <Button
+        android:id="@+id/add_entry_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_button"/>
+
 </LinearLayout>

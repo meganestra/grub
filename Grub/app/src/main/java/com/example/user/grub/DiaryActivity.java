@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -41,6 +42,8 @@ public class DiaryActivity extends AppCompatActivity {
     private Cursor cursorDinner;
     private Cursor cursorSnacks;
     private Cursor cursorCount;
+
+    private int mBreakfastCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -91,21 +94,21 @@ public class DiaryActivity extends AppCompatActivity {
         cursorSnacks.moveToFirst();
         createSnacksTable(selectedDateFormatted);
 
+        mBreakfastTableTitle.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                Intent intentBreakfastDetail = new Intent(DiaryActivity.this, BreakfastDetailActivity.class);
+                startActivity(intentBreakfastDetail);
+            }
+        });
+
     }
 
     protected void openDatabase() {
         db = openOrCreateDatabase("FoodDB", Context.MODE_PRIVATE, null);
     }
-
-//    protected void showRecords() {
-//        String id = cursor.getString(0);
-//        String description = cursor.getString(1);
-//        String dateConsumed = cursor.getString(2);
-//        String quantity = cursor.getString(3);
-//        String measure = cursor.getString(4);
-//        String calories = cursor.getString(5);
-//        String mealType = cursor.getString(6);
-//    }
 
     protected void createBreakfastTable(String date){
 
@@ -113,10 +116,10 @@ public class DiaryActivity extends AppCompatActivity {
 
         cursorCount = db.rawQuery(COUNT_SQL, null);
         cursorCount.moveToFirst();
-        int count = cursorCount.getInt(0);
+        mBreakfastCount = cursorCount.getInt(0);
         cursorCount.close();
 
-        for(int i=0; i < count; i++){
+        for(int i=0; i < mBreakfastCount; i++){
 
             cursorBreakfast.moveToPosition(i);
 

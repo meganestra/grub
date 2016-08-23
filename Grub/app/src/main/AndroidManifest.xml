@@ -50,6 +50,12 @@
             android:label="Ask about your grub">
         </activity>
 
+        <activity
+            android:parentActivityName=".DiaryActivity"
+            android:name=".BreakfastDetailActivity"
+            android:label="Breakfast detail">
+        </activity>
+
     </application>
 
 </manifest>

@@ -52,13 +52,13 @@ public class ChartDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_detail);
 
-        mChartHeader = (TextView)findViewById(R.id.chart_header);
+//        mChartHeader = (TextView)findViewById(R.id.chart_header);
         mPiechart = (PieChartView)findViewById(R.id.diary_chart);
-
-        mKeyBreakfast = (TextView)findViewById(R.id.key_breakfast);
-        mKeyLunch = (TextView)findViewById(R.id.key_lunch);
-        mKeyDinner = (TextView)findViewById(R.id.key_dinner);
-        mKeySnacks = (TextView)findViewById(R.id.key_snacks);
+//
+//        mKeyBreakfast = (TextView)findViewById(R.id.key_breakfast);
+//        mKeyLunch = (TextView)findViewById(R.id.key_lunch);
+//        mKeyDinner = (TextView)findViewById(R.id.key_dinner);
+//        mKeySnacks = (TextView)findViewById(R.id.key_snacks);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

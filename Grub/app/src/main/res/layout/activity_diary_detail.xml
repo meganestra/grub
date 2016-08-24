@@ -1,22 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="#f2e9e1">
 
-    <com.example.user.grub.MyCustomTextView
-        android:id="@+id/chart_header"
+    <TableLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="daily calories by meal"
-        android:textColor="@color/colorPrimary"
-        android:textSize="55sp"
-        android:layout_gravity="center"
-        android:includeFontPadding="true"
-        android:textAlignment="center"/>
+        android:layout_height="wrap_content">
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:background="#CBE86B"
+                android:padding="25dp"/>
+            <com.example.user.grub.MyCustomTextView
+                android:text="breakfast calories"
+                android:textSize="35sp"
+                android:layout_gravity="left"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:background="#52616A"
+                android:padding="25dp"/>
+            <com.example.user.grub.MyCustomTextView
+                android:text="lunch calories"
+                android:textSize="35sp"
+                android:layout_gravity="left"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:background="#1E2022"
+                android:padding="25dp"/>
+            <com.example.user.grub.MyCustomTextView
+                android:text="dinner calories"
+                android:textSize="35sp"
+                android:layout_gravity="left"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40sp"
+                android:background="#FFFFFF"
+                android:padding="25dp"/>
+            <com.example.user.grub.MyCustomTextView
+                android:text="snacks calories"
+                android:textSize="35sp"
+                android:layout_gravity="left"/>
+        </TableRow>
 
-    <lecho.lib.hellocharts.view.PieChartView
-        android:id="@+id/diary_chart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-</RelativeLayout>
+    </TableLayout>
+
+
+    <!--<TextView-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#f2e9e1"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/key_breakfast"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#CBE86B"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#f2e9e1"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/key_lunch"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#52616A"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#f2e9e1"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/key_dinner"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#1E2022"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#f2e9e1"-->
+        <!--android:padding="25dp"/>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/key_snacks"-->
+        <!--android:layout_width="25dp"-->
+        <!--android:layout_height="25dp"-->
+        <!--android:background="#FFFFFF"-->
+        <!--android:padding="25dp"/>-->
+
+        <lecho.lib.hellocharts.view.PieChartView
+            android:id="@+id/diary_chart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+</LinearLayout>

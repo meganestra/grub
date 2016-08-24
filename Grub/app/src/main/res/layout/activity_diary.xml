@@ -36,8 +36,20 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="35sp"
         android:layout_gravity="center"
+        android:includeFontPadding="true"/>
+
+    <Button
+        android:id="@+id/detail_view_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="detailed view"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:layout_gravity="center"
         android:includeFontPadding="true"
-        android:paddingBottom="50sp"/>
+        android:background="@drawable/button_styler"
+        android:textAllCaps="false"
+        android:padding="10dp"/>
 
     <com.example.user.grub.MyCustomTextView
         android:id="@+id/table_breakfast_title"
@@ -45,20 +57,7 @@
         android:layout_height="wrap_content"
         android:text="breakfast"
         android:textSize="45sp"
-        android:textColor="@color/colorAccent"/>
-
-    <Button
-        android:id="@+id/detail_view_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="view"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="50sp"
-        android:layout_gravity="center"
-        android:includeFontPadding="true"
-        android:background="@drawable/button_styler"
-        android:textAllCaps="false"
-        android:padding="20dp"/>
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TableLayout
         android:id="@+id/table_breakfast"
@@ -68,7 +67,8 @@
         android:stretchColumns="*"
         android:textAlignment="center"
         android:paddingBottom="30sp">
-        <TableRow>
+        <TableRow
+            android:background="@color/colorAccent">
             <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:text="lunch"
         android:textSize="45sp"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TableLayout
         android:id="@+id/table_lunch"
@@ -109,7 +109,8 @@
         android:textAlignment="center"
         android:paddingBottom="30sp">
 
-    <TableRow>
+    <TableRow
+        android:background="@color/colorAccent">
             <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
@@ -138,7 +139,7 @@
         android:layout_height="wrap_content"
         android:text="dinner"
         android:textSize="45sp"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TableLayout
         android:id="@+id/table_dinner"
@@ -149,7 +150,8 @@
         android:textAlignment="center"
         android:paddingBottom="30sp">
 
-    <TableRow>
+    <TableRow
+        android:background="@color/colorAccent">
             <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
@@ -178,7 +180,7 @@
         android:layout_height="wrap_content"
         android:text="snacks"
         android:textSize="45sp"
-        android:textColor="@color/colorAccent"/>
+        android:textColor="@color/colorPrimaryDark"/>
 
     <TableLayout
         android:id="@+id/table_snacks"
@@ -189,7 +191,8 @@
         android:textAlignment="center"
         android:paddingBottom="30sp">
 
-    <TableRow>
+    <TableRow
+        android:background="@color/colorAccent">
             <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"

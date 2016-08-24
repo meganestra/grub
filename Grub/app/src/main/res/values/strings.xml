@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">grub</string>
-    <string name="goal">kcal goal</string>
-    <string name="remaining">kcal left</string>
+    <string name="goal">goal</string>
+    <string name="remaining">left</string>
     <string name="add">add</string>
     <string name="ask">ask</string>
     <string name="add_button">add grub</string>

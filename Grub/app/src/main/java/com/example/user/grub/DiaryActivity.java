@@ -69,6 +69,7 @@ public class DiaryActivity extends AppCompatActivity {
         mSnacksTableTitle = (TextView)findViewById(R.id.table_snacks_title);
         mDiaryTotalCalories = (TextView)findViewById(R.id.diary_total_calories);
         mDetailViewButton = (Button)findViewById(R.id.detail_view_button);
+        mDetailViewButton.setTypeface(myCustomFont);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();

@@ -1,22 +1,23 @@
 <resources>
     <string name="app_name">grub</string>
-    <string name="goal">goal</string>
-    <string name="remaining">remaining</string>
+    <string name="goal">kcal goal</string>
+    <string name="remaining">kcal left</string>
     <string name="add">add</string>
     <string name="ask">ask</string>
-    <string name="add_button">add food</string>
-    <string name="ask_button">ask</string>
-    <string name="diary">my grub diary</string>
+    <string name="add_button">add grub</string>
+    <string name="ask_button">ask grub</string>
+    <string name="diary">grub diary</string>
     <string name="add_goal">add a goal</string>
     <string name="ask_date">select a date</string>
     <string name="select_date">select</string>
     <string name="submit">submit</string>
     <string name="description">enter description</string>
-    <string name="date_consumed">enter date consumed</string>
+    <string name="date_consumed">dd/mm/yyyy</string>
     <string name="quantity">enter quantity</string>
-    <string name="meal_type">enter meal</string>
+    <string name="meal_type">breakfast/lunch/dinner/snack</string>
     <string name="calories">enter kcal</string>
     <string name="measure">enter measure</string>
-    <string name="add_header">add a food to your grub diary</string>
-    <string name="ask_header">how many calories?</string>
+    <string name="add_header">add to your diary</string>
+    <string name="ask_header">how many calories</string>
+
 </resources>

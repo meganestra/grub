@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#f2e9e1">
+
+    <com.example.user.grub.MyCustomTextView
+        android:id="@+id/chart_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="daily calories by meal"
+        android:textColor="@color/colorPrimary"
+        android:textSize="55sp"
+        android:layout_gravity="center"
+        android:includeFontPadding="true"
+        android:textAlignment="center"/>
+
+    <lecho.lib.hellocharts.view.PieChartView
+        android:id="@+id/diary_chart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

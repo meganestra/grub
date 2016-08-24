@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f2e9e1">
 
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/headerGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_goal"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="75sp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="55sp"
         android:layout_gravity="center"
-        android:includeFontPadding="true"/>
+        android:includeFontPadding="true"
+        android:paddingBottom="30sp"/>
 
     <EditText
         android:id="@+id/editGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="38sp"
+        android:textSize="35sp"
         android:layout_marginTop="50dp"
-        android:hint="@string/add_goal"/>
+        android:hint="enter daily kcal goal"/>
 
     <Button
         android:id="@+id/goalButton"
@@ -27,8 +29,11 @@
         android:layout_height="wrap_content"
         android:text="@string/submit"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="75sp"
+        android:textSize="45sp"
         android:layout_gravity="center"
-        android:includeFontPadding="true"/>
+        android:includeFontPadding="true"
+        android:background="@drawable/button_styler"
+        android:padding="20dp"
+        android:textAllCaps="false"/>
 
 </LinearLayout>

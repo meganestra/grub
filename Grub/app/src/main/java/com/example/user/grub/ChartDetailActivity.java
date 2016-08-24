@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,40 +22,55 @@ import lecho.lib.hellocharts.view.PieChartView;
 /**
  * Created by user on 23/08/2016.
  */
-public class BreakfastDetailActivity extends AppCompatActivity {
+public class ChartDetailActivity extends AppCompatActivity {
 
     PieChartView mPiechart;
     PieChartData data;
-    TableLayout mBreakfastTable;
     Cursor cursorTotalBreakfastCalories;
     Cursor cursorTotalLunchCalories;
     Cursor cursorTotalDinnerCalories;
     Cursor cursorTotalSnacksCalories;
     SQLiteDatabase db;
+    TextView mChartHeader;
+    String mSelectedDate;
+    TextView mKeyBreakfast;
+    TextView mKeyLunch;
+    TextView mKeyDinner;
+    TextView mKeySnacks;
 
-    private boolean hasLabels = false;
+    private boolean hasLabels = true;
     private boolean hasLabelsOutside = false;
-    private boolean hasCenterCircle = false;
+    private boolean hasCenterCircle = true;
     private boolean hasCenterText1 = false;
     private boolean hasCenterText2 = false;
-    private boolean isExploded = false;
-    private boolean hasLabelForSelected = false;
+    private boolean isExploded = true;
+    private boolean hasLabelForSelected = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_breakfast_detail);
+        setContentView(R.layout.activity_diary_detail);
 
-        mPiechart = (PieChartView)findViewById(R.id.breakfast_chart);
-        mBreakfastTable = (TableLayout)findViewById(R.id.table_breakfast);
+        mChartHeader = (TextView)findViewById(R.id.chart_header);
+        mPiechart = (PieChartView)findViewById(R.id.diary_chart);
+
+        mKeyBreakfast = (TextView)findViewById(R.id.key_breakfast);
+        mKeyLunch = (TextView)findViewById(R.id.key_lunch);
+        mKeyDinner = (TextView)findViewById(R.id.key_dinner);
+        mKeySnacks = (TextView)findViewById(R.id.key_snacks);
+
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        mSelectedDate = extras.getString("selectedDate");
+        Log.d("selectedDateCHART", mSelectedDate);
 
         List<SliceValue> values = new ArrayList<SliceValue>();
 
-            SliceValue breakfast = new SliceValue(totalBreakfastCalories(), ChartUtils.pickColor());
-            SliceValue lunch = new SliceValue(totalLunchCalories(), ChartUtils.pickColor());
-            SliceValue dinner = new SliceValue(totalDinnerCalories(), ChartUtils.pickColor());
-            SliceValue snacks = new SliceValue(totalSnacksCalories(), ChartUtils.pickColor());
+            SliceValue breakfast = new SliceValue(totalBreakfastCalories(), Color.rgb(203,232,107));
+            SliceValue lunch = new SliceValue(totalLunchCalories(), Color.rgb(82,97,106));
+            SliceValue dinner = new SliceValue(totalDinnerCalories(), Color.rgb(30,32,34));
+            SliceValue snacks = new SliceValue(totalSnacksCalories(), Color.rgb(255,255,255));
 
             values.add(breakfast);
             values.add(lunch);
@@ -67,9 +85,6 @@ public class BreakfastDetailActivity extends AppCompatActivity {
 
         mPiechart.setPieChartData(data);
 
-
-        Intent intent = getIntent();
-
     }
 
     protected void openDatabase() {
@@ -81,7 +96,7 @@ public class BreakfastDetailActivity extends AppCompatActivity {
 
         int totalBreakfastCalories = 0;
 
-        String SQL_BREAKFAST_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'breakfast'";
+        String SQL_BREAKFAST_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'breakfast' AND dateConsumed =" + "'" + mSelectedDate + "'";
 
         cursorTotalBreakfastCalories = db.rawQuery(SQL_BREAKFAST_QUERY, null);
         cursorTotalBreakfastCalories.moveToFirst();
@@ -98,7 +113,7 @@ public class BreakfastDetailActivity extends AppCompatActivity {
 
         int totalLunchCalories = 0;
 
-        String SQL_LUNCH_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'lunch'";
+        String SQL_LUNCH_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'lunch' AND dateConsumed =" + "'" + mSelectedDate + "'";
 
         cursorTotalLunchCalories = db.rawQuery(SQL_LUNCH_QUERY, null);
         cursorTotalLunchCalories.moveToFirst();
@@ -115,7 +130,7 @@ public class BreakfastDetailActivity extends AppCompatActivity {
 
         int totalDinnerCalories = 0;
 
-        String SQL_DINNER_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'dinner'";
+        String SQL_DINNER_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'dinner' AND dateConsumed =" + "'" + mSelectedDate + "'";
 
         cursorTotalDinnerCalories = db.rawQuery(SQL_DINNER_QUERY, null);
         cursorTotalDinnerCalories.moveToFirst();
@@ -132,7 +147,7 @@ public class BreakfastDetailActivity extends AppCompatActivity {
 
         int totalSnacksCalories = 0;
 
-        String SQL_SNACKS_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'snack'";
+        String SQL_SNACKS_QUERY = "SELECT sum(calories) FROM food WHERE meal_type = 'snack' AND dateConsumed =" + "'" + mSelectedDate + "'";
 
         cursorTotalSnacksCalories = db.rawQuery(SQL_SNACKS_QUERY, null);
         cursorTotalSnacksCalories.moveToFirst();

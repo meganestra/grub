@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -26,7 +28,6 @@ public class DiaryActivity extends AppCompatActivity {
 
     TextView mHeaderDiary;
     TextView mDiaryDate;
-    TextView mDescription;
     TextView mBreakfastTableTitle;
     TableLayout mBreakfastTable;
     TextView mLunchTableTitle;
@@ -35,6 +36,11 @@ public class DiaryActivity extends AppCompatActivity {
     TableLayout mDinnerTable;
     TextView mSnacksTableTitle;
     TableLayout mSnacksTable;
+    String mSelectedDateFormatted;
+    Typeface myCustomFont;
+    TextView mDiaryTotalCalories;
+    Cursor cursorTotal;
+    Button mDetailViewButton;
 
     private SQLiteDatabase db;
     private Cursor cursorBreakfast;
@@ -43,16 +49,16 @@ public class DiaryActivity extends AppCompatActivity {
     private Cursor cursorSnacks;
     private Cursor cursorCount;
 
-    private int mBreakfastCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+        myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/CutiveMono-Regular.ttf");
+
         mHeaderDiary = (TextView)findViewById(R.id.header_diary);
         mDiaryDate = (TextView)findViewById(R.id.diary_date);
-        mDescription = (TextView)findViewById(R.id.description);
         mBreakfastTable = (TableLayout)findViewById(R.id.table_breakfast);
         mLunchTable = (TableLayout)findViewById(R.id.table_lunch);
         mDinnerTable = (TableLayout)findViewById(R.id.table_dinner);
@@ -61,53 +67,71 @@ public class DiaryActivity extends AppCompatActivity {
         mLunchTableTitle = (TextView)findViewById(R.id.table_lunch_title);
         mDinnerTableTitle = (TextView)findViewById(R.id.table_dinner_title);
         mSnacksTableTitle = (TextView)findViewById(R.id.table_snacks_title);
+        mDiaryTotalCalories = (TextView)findViewById(R.id.diary_total_calories);
+        mDetailViewButton = (Button)findViewById(R.id.detail_view_button);
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         String selectedDate = extras.getString("selectedDate");
 
         String[] parts = selectedDate.split("/");
-        String selectedDateFormatted = parts[0] + "." + parts[1] + "." + parts[2];
+        mSelectedDateFormatted = parts[0] + "." + parts[1] + "." + parts[2];
 
-        Log.d("Grub: intent received ", selectedDateFormatted);
+        Log.d("Grub: intent received ", mSelectedDateFormatted);
         mDiaryDate.setText(selectedDate);
 
         openDatabase();
 
-        String BREAKFAST_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + selectedDateFormatted + "'" + "AND meal_type = 'breakfast'";
+        mDiaryTotalCalories.setText("total calories: " + calculateTotalCalories() + "");
+
+        String BREAKFAST_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + mSelectedDateFormatted + "'" + "AND meal_type = 'breakfast'";
         cursorBreakfast = db.rawQuery(BREAKFAST_SELECT_SQL, null);
         cursorBreakfast.moveToFirst();
-        createBreakfastTable(selectedDateFormatted);
+        createBreakfastTable(mSelectedDateFormatted);
 
-        String LUNCH_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + selectedDateFormatted + "'" + "AND meal_type = 'lunch'";
+        String LUNCH_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + mSelectedDateFormatted + "'" + "AND meal_type = 'lunch'";
         cursorLunch = db.rawQuery(LUNCH_SELECT_SQL, null);
         cursorLunch.moveToFirst();
-        createLunchTable(selectedDateFormatted);
+        createLunchTable(mSelectedDateFormatted);
 
-        String DINNER_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + selectedDateFormatted + "'" + "AND meal_type = 'dinner'";
+        String DINNER_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + mSelectedDateFormatted + "'" + "AND meal_type = 'dinner'";
         cursorDinner = db.rawQuery(DINNER_SELECT_SQL, null);
         cursorDinner.moveToFirst();
-        createDinnerTable(selectedDateFormatted);
+        createDinnerTable(mSelectedDateFormatted);
 
-        String SNACK_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + selectedDateFormatted + "'" + "AND meal_type = 'snack'";
+        String SNACK_SELECT_SQL = "SELECT * FROM food WHERE dateConsumed =" + "'" + mSelectedDateFormatted + "'" + "AND meal_type = 'snack'";
         cursorSnacks = db.rawQuery(SNACK_SELECT_SQL, null);
         cursorSnacks.moveToFirst();
-        createSnacksTable(selectedDateFormatted);
+        createSnacksTable(mSelectedDateFormatted);
 
-        mBreakfastTableTitle.setOnClickListener(new View.OnClickListener() {
-
+        mDetailViewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intentBreakfastDetail = new Intent(DiaryActivity.this, BreakfastDetailActivity.class);
-                startActivity(intentBreakfastDetail);
+                Intent intent = new Intent(DiaryActivity.this, ChartDetailActivity.class);
+                intent.putExtra("selectedDate", mSelectedDateFormatted);
+                startActivity(intent);
             }
         });
-
     }
 
     protected void openDatabase() {
         db = openOrCreateDatabase("FoodDB", Context.MODE_PRIVATE, null);
+    }
+
+
+    protected int calculateTotalCalories() {
+
+        int total = 0;
+
+        String REMAINING_SQL_QUERY = "SELECT sum(calories) FROM food WHERE dateConsumed =" + "'" + mSelectedDateFormatted + "'";
+        cursorTotal = db.rawQuery(REMAINING_SQL_QUERY, null);
+        cursorTotal.moveToFirst();
+        total = cursorTotal.getInt(0);
+//        cursorTotal.close();
+//        db.close();
+
+        return total;
+
     }
 
     protected void createBreakfastTable(String date){
@@ -116,36 +140,50 @@ public class DiaryActivity extends AppCompatActivity {
 
         cursorCount = db.rawQuery(COUNT_SQL, null);
         cursorCount.moveToFirst();
-        mBreakfastCount = cursorCount.getInt(0);
+        int count = cursorCount.getInt(0);
         cursorCount.close();
 
-        for(int i=0; i < mBreakfastCount; i++){
+        if(count > 0) {
 
-            cursorBreakfast.moveToPosition(i);
+            for (int i = 0; i < count; i++) {
 
-            TableRow row = new TableRow(this);
+                cursorBreakfast.moveToPosition(i);
 
-            TextView description = new TextView(this);
-            TextView dateConsumed = new TextView(this);
-            TextView quantity = new TextView(this);
-            TextView measure = new TextView(this);
-            TextView calories = new TextView(this);
-//            TextView mealType = new TextView(this);
+                TableRow row = new TableRow(this);
 
-            description.setText(cursorBreakfast.getString(1));
-            dateConsumed.setText(cursorBreakfast.getString(2));
-            quantity.setText(cursorBreakfast.getString(3));
-            measure.setText(cursorBreakfast.getString(4));
-            calories.setText(cursorBreakfast.getString(5));
-//            mealType.setText(cursorBreakfast.getString(6));
+                TextView description = new TextView(this);
+                description.setTypeface(myCustomFont);
+                description.setTextSize(35);
+                TextView dateConsumed = new TextView(this);
+                dateConsumed.setTypeface(myCustomFont);
+                dateConsumed.setTextSize(35);
+                TextView quantity = new TextView(this);
+                quantity.setTypeface(myCustomFont);
+                quantity.setTextSize(35);
+                TextView measure = new TextView(this);
+                measure.setTypeface(myCustomFont);
+                measure.setTextSize(35);
+                TextView calories = new TextView(this);
+                calories.setTypeface(myCustomFont);
+                calories.setTextSize(35);
 
-            row.addView(description);
-            row.addView(quantity);
-            row.addView(measure);
-            row.addView(calories);
-//            row.addView(mealType);
+                description.setText(cursorBreakfast.getString(1));
+                dateConsumed.setText(cursorBreakfast.getString(2));
+                quantity.setText(cursorBreakfast.getString(3));
+                measure.setText(cursorBreakfast.getString(4));
+                calories.setText(cursorBreakfast.getString(5));
 
-            mBreakfastTable.addView(row);
+                row.addView(description);
+                row.addView(quantity);
+                row.addView(measure);
+                row.addView(calories);
+
+                mBreakfastTable.addView(row);
+            }
+        } else {
+
+            mBreakfastTable.setVisibility(View.INVISIBLE);
+
         }
     }
 
@@ -158,33 +196,47 @@ public class DiaryActivity extends AppCompatActivity {
         int count = cursorCount.getInt(0);
         cursorCount.close();
 
-        for(int i=0; i < count; i++){
+        if(count > 0 ) {
 
-            cursorLunch.moveToPosition(i);
+            for (int i = 0; i < count; i++) {
 
-            TableRow row = new TableRow(this);
+                cursorLunch.moveToPosition(i);
 
-            TextView description = new TextView(this);
-            TextView dateConsumed = new TextView(this);
-            TextView quantity = new TextView(this);
-            TextView measure = new TextView(this);
-            TextView calories = new TextView(this);
-//            TextView mealType = new TextView(this);
+                TableRow row = new TableRow(this);
 
-            description.setText(cursorLunch.getString(1));
-            dateConsumed.setText(cursorLunch.getString(2));
-            quantity.setText(cursorLunch.getString(3));
-            measure.setText(cursorLunch.getString(4));
-            calories.setText(cursorLunch.getString(5));
-//            mealType.setText(cursorLunch.getString(6));
+                TextView description = new TextView(this);
+                description.setTypeface(myCustomFont);
+                description.setTextSize(35);
+                TextView dateConsumed = new TextView(this);
+                dateConsumed.setTypeface(myCustomFont);
+                dateConsumed.setTextSize(35);
+                TextView quantity = new TextView(this);
+                quantity.setTypeface(myCustomFont);
+                quantity.setTextSize(35);
+                TextView measure = new TextView(this);
+                measure.setTypeface(myCustomFont);
+                measure.setTextSize(35);
+                TextView calories = new TextView(this);
+                calories.setTypeface(myCustomFont);
+                calories.setTextSize(35);
 
-            row.addView(description);
-            row.addView(quantity);
-            row.addView(measure);
-            row.addView(calories);
-//            row.addView(mealType);
+                description.setText(cursorLunch.getString(1));
+                dateConsumed.setText(cursorLunch.getString(2));
+                quantity.setText(cursorLunch.getString(3));
+                measure.setText(cursorLunch.getString(4));
+                calories.setText(cursorLunch.getString(5));
 
-            mLunchTable.addView(row);
+                row.addView(description);
+                row.addView(quantity);
+                row.addView(measure);
+                row.addView(calories);
+
+                mLunchTable.addView(row);
+            }
+        } else {
+
+            mLunchTable.setVisibility(View.INVISIBLE);
+
         }
     }
 
@@ -197,37 +249,51 @@ public class DiaryActivity extends AppCompatActivity {
         int count = cursorCount.getInt(0);
         cursorCount.close();
 
-        for(int i=0; i < count; i++){
+        if(count > 0) {
 
-            cursorDinner.moveToPosition(i);
+            for (int i = 0; i < count; i++) {
 
-            TableRow row = new TableRow(this);
+                cursorDinner.moveToPosition(i);
 
-            TextView description = new TextView(this);
-            TextView dateConsumed = new TextView(this);
-            TextView quantity = new TextView(this);
-            TextView measure = new TextView(this);
-            TextView calories = new TextView(this);
-//            TextView mealType = new TextView(this);
+                TableRow row = new TableRow(this);
 
-            description.setText(cursorDinner.getString(1));
-            dateConsumed.setText(cursorDinner.getString(2));
-            quantity.setText(cursorDinner.getString(3));
-            measure.setText(cursorDinner.getString(4));
-            calories.setText(cursorDinner.getString(5));
-//            mealType.setText(cursorDinner.getString(6));
+                TextView description = new TextView(this);
+                description.setTypeface(myCustomFont);
+                description.setTextSize(35);
+                TextView dateConsumed = new TextView(this);
+                dateConsumed.setTypeface(myCustomFont);
+                dateConsumed.setTextSize(35);
+                TextView quantity = new TextView(this);
+                quantity.setTypeface(myCustomFont);
+                quantity.setTextSize(35);
+                TextView measure = new TextView(this);
+                measure.setTypeface(myCustomFont);
+                measure.setTextSize(35);
+                TextView calories = new TextView(this);
+                calories.setTypeface(myCustomFont);
+                calories.setTextSize(35);
 
-            row.addView(description);
-            row.addView(quantity);
-            row.addView(measure);
-            row.addView(calories);
-//            row.addView(mealType);
+                description.setText(cursorDinner.getString(1));
+                dateConsumed.setText(cursorDinner.getString(2));
+                quantity.setText(cursorDinner.getString(3));
+                measure.setText(cursorDinner.getString(4));
+                calories.setText(cursorDinner.getString(5));
 
-            mDinnerTable.addView(row);
+                row.addView(description);
+                row.addView(quantity);
+                row.addView(measure);
+                row.addView(calories);
+
+                mDinnerTable.addView(row);
+            }
+        } else {
+
+            mDinnerTable.setVisibility(View.INVISIBLE);
+
         }
     }
 
-    protected void createSnacksTable(String date){
+    protected void createSnacksTable(String date) {
 
         String COUNT_SQL = "SELECT COUNT(*) FROM food WHERE dateConsumed =" + "'" + date + "'" + "AND meal_type = 'snack'";
 
@@ -236,35 +302,51 @@ public class DiaryActivity extends AppCompatActivity {
         int count = cursorCount.getInt(0);
         cursorCount.close();
 
-        for(int i=0; i < count; i++){
+        if (count > 0) {
 
-            cursorSnacks.moveToPosition(i);
+            for (int i = 0; i < count; i++) {
 
-            TableRow row = new TableRow(this);
+                cursorSnacks.moveToPosition(i);
 
-            TextView description = new TextView(this);
-            TextView dateConsumed = new TextView(this);
-            TextView quantity = new TextView(this);
-            TextView measure = new TextView(this);
-            TextView calories = new TextView(this);
-//            TextView mealType = new TextView(this);
+                TableRow row = new TableRow(this);
 
-            description.setText(cursorSnacks.getString(1));
-            dateConsumed.setText(cursorSnacks.getString(2));
-            quantity.setText(cursorSnacks.getString(3));
-            measure.setText(cursorSnacks.getString(4));
-            calories.setText(cursorSnacks.getString(5));
-//            mealType.setText(cursorSnacks.getString(6));
+                TextView description = new TextView(this);
+                description.setTypeface(myCustomFont);
+                description.setTextSize(35);
+                TextView dateConsumed = new TextView(this);
+                dateConsumed.setTypeface(myCustomFont);
+                dateConsumed.setTextSize(35);
+                TextView quantity = new TextView(this);
+                quantity.setTypeface(myCustomFont);
+                quantity.setTextSize(35);
+                TextView measure = new TextView(this);
+                measure.setTypeface(myCustomFont);
+                measure.setTextSize(35);
+                TextView calories = new TextView(this);
+                calories.setTypeface(myCustomFont);
+                calories.setTextSize(35);
 
-            row.addView(description);
-            row.addView(quantity);
-            row.addView(measure);
-            row.addView(calories);
-//            row.addView(mealType);
+                description.setText(cursorSnacks.getString(1));
+                dateConsumed.setText(cursorSnacks.getString(2));
+                quantity.setText(cursorSnacks.getString(3));
+                measure.setText(cursorSnacks.getString(4));
+                calories.setText(cursorSnacks.getString(5));
 
-            mSnacksTable.addView(row);
+                row.addView(description);
+                row.addView(quantity);
+                row.addView(measure);
+                row.addView(calories);
+
+                mSnacksTable.addView(row);
+            }
+        }  else {
+
+            mSnacksTable.setVisibility(View.INVISIBLE);
+
         }
     }
+
+
 }
 
 

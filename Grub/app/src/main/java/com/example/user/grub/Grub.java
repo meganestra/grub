@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,20 +34,33 @@ public class Grub extends AppCompatActivity {
     Goal mGoal;
     SQLiteDatabase db;
     Cursor cursorRemaining;
+    Typeface myCustomFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mHeader = (TextView) findViewById(R.id.header);
+
+        myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/CutiveMono-Regular.ttf");
+
+        mHeader = (TextView)findViewById(R.id.header);
+        mHeader.setTypeface(myCustomFont);
         mGoalHeader = (TextView) findViewById(R.id.goal);
+        mGoalHeader.setTypeface(myCustomFont);
         mGoalValue = (TextView) findViewById(R.id.goal_value);
+        mGoalValue.setTypeface(myCustomFont);
         mRemainingHeader = (TextView) findViewById(R.id.remaining);
+        mRemainingHeader.setTypeface(myCustomFont);
         mRemainingValue = (TextView) findViewById(R.id.remaining_value);
-        mAskHeader = (TextView) findViewById(R.id.ask);
-        mAddHeader = (TextView) findViewById(R.id.add);
+        mRemainingValue.setTypeface(myCustomFont);
+//        mAskHeader = (TextView) findViewById(R.id.ask);
+//        mAskHeader.setTypeface(myCustomFont);
+//        mAddHeader = (TextView) findViewById(R.id.add);
+//        mAddHeader.setTypeface(myCustomFont);
         mAddButton = (Button) findViewById(R.id.add_button);
+        mAddButton.setTypeface(myCustomFont);
         mAskButton = (Button) findViewById(R.id.ask_button);
+        mAskButton.setTypeface(myCustomFont);
 
         String goalString = SavedTextPreferences.getStoredText(this);
         mGoalValue.setText(goalString);

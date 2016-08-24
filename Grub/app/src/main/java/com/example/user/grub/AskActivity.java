@@ -2,6 +2,7 @@ package com.example.user.grub;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -31,24 +32,40 @@ public class AskActivity extends AppCompatActivity {
     NutritionSearch mSearch;
     Button mAskAddEntry;
     SQLiteDatabase db;
+    Typeface myCustomFont;
+    TextView mCaloriesAnswerHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask);
 
+        myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/CutiveMono-Regular.ttf");
+
         mHeaderAsk = (TextView)findViewById(R.id.header_ask);
+        mHeaderAsk.setTypeface(myCustomFont);
         mDescriptionInputAsk = (EditText)findViewById(R.id.description_input_ask);
+        mDescriptionInputAsk.setTypeface(myCustomFont);
         mDateConsumedAsk = (EditText)findViewById(R.id.date_consumed_input_ask);
+        mDateConsumedAsk.setTypeface(myCustomFont);
         mQuantityAsk = (EditText)findViewById(R.id.quantity_input_ask);
+        mQuantityAsk.setTypeface(myCustomFont);
         mMeasureAsk = (EditText)findViewById(R.id.measure_input_ask);
+        mMeasureAsk.setTypeface(myCustomFont);
         mMealTypeAsk = (EditText)findViewById(R.id.meal_type_input_ask);
+        mMealTypeAsk.setTypeface(myCustomFont);
 
         mAskEntry = (Button)findViewById(R.id.ask_calories_button);
+        mAskEntry.setTypeface(myCustomFont);
         mAskAddEntry = (Button)findViewById(R.id.ask_add_button);
+        mAskAddEntry.setTypeface(myCustomFont);
         mAskAddEntry.setVisibility(View.INVISIBLE);
 
+        mCaloriesAnswerHeader = (TextView)findViewById(R.id.calories_answer_header);
+        mCaloriesAnswerHeader.setTypeface(myCustomFont);
+        mCaloriesAnswerHeader.setVisibility(View.INVISIBLE);
         mCaloriesAnswer = (TextView)findViewById(R.id.calories_answer);
+        mCaloriesAnswer.setTypeface(myCustomFont);
 
         mAskEntry.setOnClickListener(new View.OnClickListener() {
 
@@ -66,6 +83,7 @@ public class AskActivity extends AppCompatActivity {
                 mSearch.getFoodData(quantity, measure, description);
 
                 mAskAddEntry.setVisibility(View.VISIBLE);
+                mCaloriesAnswerHeader.setVisibility(View.VISIBLE);
                 String calories = mCaloriesAnswer.getText().toString();
             }
         });
@@ -108,13 +126,6 @@ public class AskActivity extends AppCompatActivity {
     }
 
 }
-
-
-
-
-
-
-
 
 
 

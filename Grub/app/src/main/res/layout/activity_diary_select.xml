@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f2e9e1">
 
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/headerDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ask_date"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
         android:textSize="75sp"
         android:layout_gravity="center"
-        android:includeFontPadding="true"/>
+        android:includeFontPadding="true"
+        android:paddingBottom="30sp"/>
 
     <CalendarView
         android:id="@+id/calendar"
@@ -27,8 +29,11 @@
         android:layout_height="wrap_content"
         android:text="@string/select_date"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="75sp"
+        android:textSize="50sp"
         android:layout_gravity="center"
-        android:includeFontPadding="true"/>
+        android:includeFontPadding="true"
+        android:background="@drawable/button_styler"
+        android:textAllCaps="false"
+        android:padding="20dp"/>
 
 </LinearLayout>

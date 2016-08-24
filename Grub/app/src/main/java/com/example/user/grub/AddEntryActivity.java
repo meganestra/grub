@@ -1,6 +1,7 @@
 package com.example.user.grub;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,6 +27,7 @@ public class AddEntryActivity extends AppCompatActivity {
     EditText mCalories;
     EditText mMealType;
     Button mAddEntry;
+    Typeface myCustomFont;
 
     SQLiteDatabase db;
 
@@ -34,16 +36,26 @@ public class AddEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_entry);
 
+        myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/CutiveMono-Regular.ttf");
+
         createDatabase();
 
         mHeaderAdd = (TextView)findViewById(R.id.add_header);
+        mHeaderAdd.setTypeface(myCustomFont);
         mDescriptionInput = (EditText)findViewById(R.id.description_input);
+        mDescriptionInput.setTypeface(myCustomFont);
         mDateConsumed = (EditText)findViewById(R.id.date_consumed_input);
+        mDateConsumed.setTypeface(myCustomFont);
         mQuantity = (EditText)findViewById(R.id.quantity_input);
+        mQuantity.setTypeface(myCustomFont);
         mMeasure = (EditText)findViewById(R.id.measure_input);
+        mMeasure.setTypeface(myCustomFont);
         mCalories = (EditText)findViewById(R.id.calories_input);
+        mCalories.setTypeface(myCustomFont);
         mMealType = (EditText)findViewById(R.id.meal_type_input);
+        mMealType.setTypeface(myCustomFont);
         mAddEntry = (Button)findViewById(R.id.add_entry_button);
+        mAddEntry.setTypeface(myCustomFont);
 
 
         mAddEntry.setOnClickListener(new View.OnClickListener(){
@@ -62,7 +74,6 @@ public class AddEntryActivity extends AppCompatActivity {
     protected void insertIntoDB() {
 
         String descriptionToSave = mDescriptionInput.getText().toString();
-
         String dateConsumedToSave = mDateConsumed.getText().toString();
         String quantityToSave = mQuantity.getText().toString();
         String measureToSave = mMeasure.getText().toString();

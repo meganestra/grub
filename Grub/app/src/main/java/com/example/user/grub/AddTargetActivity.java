@@ -2,6 +2,7 @@ package com.example.user.grub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,6 +20,7 @@ public class AddTargetActivity extends AppCompatActivity {
     TextView mGoalHeader;
     EditText mGoalInput;
     Button mGoalButton;
+    Typeface myCustomFont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +28,14 @@ public class AddTargetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_target);
 
+        myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/CutiveMono-Regular.ttf");
+
         mGoalHeader = (TextView) findViewById(R.id.headerGoal);
+        mGoalHeader.setTypeface(myCustomFont);
         mGoalInput = (EditText) findViewById(R.id.editGoal);
+        mGoalInput.setTypeface(myCustomFont);
         mGoalButton = (Button) findViewById(R.id.goalButton);
+        mGoalButton.setTypeface(myCustomFont);
 
         mGoalButton.setOnClickListener(new View.OnClickListener() {
 

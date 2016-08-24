@@ -1,43 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f2e9e1">
+
+<LinearLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/header_diary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/diary"
-        android:textColor="@color/colorPrimaryDark"
+        android:textColor="@color/colorPrimary"
         android:textSize="75sp"
         android:layout_gravity="center"
         android:includeFontPadding="true"/>
 
-    <TextView
-        android:id="@+id/diary_date"
+    <com.example.user.grub.MyCustomTextView
+    android:id="@+id/diary_date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text=""
+    android:textColor="@color/colorPrimaryDark"
+    android:textSize="35sp"
+    android:layout_gravity="center"
+    android:includeFontPadding="true"/>
+
+    <com.example.user.grub.MyCustomTextView
+        android:id="@+id/diary_total_calories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="75sp"
+        android:textSize="35sp"
         android:layout_gravity="center"
-        android:includeFontPadding="true"/>
+        android:includeFontPadding="true"
+        android:paddingBottom="50sp"/>
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="75sp"
-        android:layout_gravity="center"
-        android:includeFontPadding="true"/>
-
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/table_breakfast_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="breakfast"/>
+        android:text="breakfast"
+        android:textSize="45sp"
+        android:textColor="@color/colorAccent"/>
+
+    <Button
+        android:id="@+id/detail_view_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="view"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="50sp"
+        android:layout_gravity="center"
+        android:includeFontPadding="true"
+        android:background="@drawable/button_styler"
+        android:textAllCaps="false"
+        android:padding="20dp"/>
 
     <TableLayout
         android:id="@+id/table_breakfast"
@@ -45,35 +66,39 @@
         android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:textAlignment="center">
+        android:textAlignment="center"
+        android:paddingBottom="30sp">
         <TableRow>
-            <TextView android:text="Description"
+            <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
-                android:textSize="25sp"/>
-            <TextView android:text="Quantity"
+                android:textSize="25sp"
+                android:textStyle="bold"/>
+            <com.example.user.grub.MyCustomTextView android:text="quantity"
                 android:layout_width="wrap_content"
                 android:layout_column="1"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Measure"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="measure"
                 android:layout_width="wrap_content"
                 android:layout_column="2"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Calories"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="calories"
                 android:layout_width="wrap_content"
                 android:layout_column="3"
                 android:textSize="25sp">
-            </TextView>
+            </com.example.user.grub.MyCustomTextView>
         </TableRow>
     </TableLayout>
 
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/table_lunch_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="lunch"/>
+        android:text="lunch"
+        android:textSize="45sp"
+        android:textColor="@color/colorAccent"/>
 
     <TableLayout
         android:id="@+id/table_lunch"
@@ -81,35 +106,39 @@
         android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:textAlignment="center">
-        <TableRow>
-            <TextView android:text="Description"
+        android:textAlignment="center"
+        android:paddingBottom="30sp">
+
+    <TableRow>
+            <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
                 android:textSize="25sp"/>
-            <TextView android:text="Quantity"
+            <com.example.user.grub.MyCustomTextView android:text="quantity"
                 android:layout_width="wrap_content"
                 android:layout_column="1"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Measure"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="measure"
                 android:layout_width="wrap_content"
                 android:layout_column="2"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Calories"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="calories"
                 android:layout_width="wrap_content"
                 android:layout_column="3"
                 android:textSize="25sp">
-            </TextView>
+            </com.example.user.grub.MyCustomTextView>
         </TableRow>
     </TableLayout>
 
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/table_dinner_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="dinner"/>
+        android:text="dinner"
+        android:textSize="45sp"
+        android:textColor="@color/colorAccent"/>
 
     <TableLayout
         android:id="@+id/table_dinner"
@@ -117,35 +146,39 @@
         android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:textAlignment="center">
-        <TableRow>
-            <TextView android:text="Description"
+        android:textAlignment="center"
+        android:paddingBottom="30sp">
+
+    <TableRow>
+            <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
                 android:textSize="25sp"/>
-            <TextView android:text="Quantity"
+            <com.example.user.grub.MyCustomTextView android:text="quantity"
                 android:layout_width="wrap_content"
                 android:layout_column="1"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Measure"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="measure"
                 android:layout_width="wrap_content"
                 android:layout_column="2"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Calories"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="calories"
                 android:layout_width="wrap_content"
                 android:layout_column="3"
                 android:textSize="25sp">
-            </TextView>
+            </com.example.user.grub.MyCustomTextView>
         </TableRow>
     </TableLayout>
 
-    <TextView
+    <com.example.user.grub.MyCustomTextView
         android:id="@+id/table_snacks_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="snacks"/>
+        android:text="snacks"
+        android:textSize="45sp"
+        android:textColor="@color/colorAccent"/>
 
     <TableLayout
         android:id="@+id/table_snacks"
@@ -153,29 +186,31 @@
         android:layout_height="wrap_content"
         android:shrinkColumns="*"
         android:stretchColumns="*"
-        android:textAlignment="center">
-        <TableRow>
-            <TextView android:text="Description"
+        android:textAlignment="center"
+        android:paddingBottom="30sp">
+
+    <TableRow>
+            <com.example.user.grub.MyCustomTextView android:text="description"
                 android:layout_width="wrap_content"
                 android:layout_column="0"
                 android:textSize="25sp"/>
-            <TextView android:text="Quantity"
+            <com.example.user.grub.MyCustomTextView android:text="quantity"
                 android:layout_width="wrap_content"
                 android:layout_column="1"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Measure"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="measure"
                 android:layout_width="wrap_content"
                 android:layout_column="2"
                 android:textSize="25sp">
-            </TextView>
-            <TextView android:text="Calories"
+            </com.example.user.grub.MyCustomTextView>
+            <com.example.user.grub.MyCustomTextView android:text="calories"
                 android:layout_width="wrap_content"
                 android:layout_column="3"
                 android:textSize="25sp">
-            </TextView>
+            </com.example.user.grub.MyCustomTextView>
         </TableRow>
     </TableLayout>
 
-
 </LinearLayout>
+</ScrollView>

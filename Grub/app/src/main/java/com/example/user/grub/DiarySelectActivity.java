@@ -1,6 +1,7 @@
 package com.example.user.grub;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,14 +22,20 @@ public class DiarySelectActivity extends AppCompatActivity {
     TextView mDateHeader;
     CalendarView mCalendar;
     Button mDateButton;
+    Typeface myCustomFont;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary_select);
+
+        myCustomFont = Typeface.createFromAsset(getAssets(), "fonts/CutiveMono-Regular.ttf");
+
         mDateHeader = (TextView)findViewById(R.id.headerDate);
+        mDateHeader.setTypeface(myCustomFont);
         mCalendar = (CalendarView)findViewById(R.id.calendar);
         mDateButton = (Button)findViewById(R.id.dateButton);
+        mDateButton.setTypeface(myCustomFont);
 
         mDateButton.setOnClickListener(new View.OnClickListener() {
 

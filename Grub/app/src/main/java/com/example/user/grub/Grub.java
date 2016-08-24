@@ -125,7 +125,7 @@ public class Grub extends AppCompatActivity {
 
         int total = 0;
 
-        String REMAINING_SQL_QUERY = "SELECT sum(calories) FROM food WHERE dateConsumed = '23.08.2016'";
+        String REMAINING_SQL_QUERY = "SELECT sum(calories) FROM food WHERE dateConsumed = '25.08.2016'";
         cursorRemaining = db.rawQuery(REMAINING_SQL_QUERY, null);
         cursorRemaining.moveToFirst();
         total = cursorRemaining.getInt(0);
